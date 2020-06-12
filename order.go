@@ -314,23 +314,34 @@ type ClientDetails struct {
 }
 
 type Refund struct {
-	Id              int64            `json:"id,omitempty"`
-	OrderId         int64            `json:"order_id,omitempty"`
-	CreatedAt       *time.Time       `json:"created_at,omitempty"`
-	Note            string           `json:"note,omitempty"`
-	Restock         bool             `json:"restock,omitempty"`
-	UserId          int64            `json:"user_id,omitempty"`
-	RefundLineItems []RefundLineItem `json:"refund_line_items,omitempty"`
-	Transactions    []Transaction    `json:"transactions,omitempty"`
+	Id                int64            `json:"id,omitempty"`
+	OrderId           int64            `json:"order_id,omitempty"`
+	CreatedAt         *time.Time       `json:"created_at,omitempty"`
+	Email             bool             `json:"email,omitempty"`
+	Notify            string           `json:"notify,omitempty"`
+	DiscrepancyReason string           `json:"discrepancy_reason"`
+	Restock           bool             `json:"restock,omitempty"`
+	UserId            int64            `json:"user_id,omitempty"`
+	RefundLineItems   []RefundLineItem `json:"refund_line_items,omitempty"`
+	Transactions      []Transaction    `json:"transactions,omitempty"`
+	Shipping          *RefundShipping  `json:"shipping,omitempty"`
+	Currency          string           `json:"currency,omitempty"`
+}
+
+type RefundShipping struct {
+	FullRefund bool             `json:"full_refund,omitempty"`
+	Amount     *decimal.Decimal `json:"amount,omitempty"`
 }
 
 type RefundLineItem struct {
-	Id         int64            `json:"id,omitempty"`
-	Quantity   int              `json:"quantity,omitempty"`
-	LineItemId int64            `json:"line_item_id,omitempty"`
-	LineItem   *LineItem        `json:"line_item,omitempty"`
-	Subtotal   *decimal.Decimal `json:"subtotal,omitempty"`
-	TotalTax   *decimal.Decimal `json:"total_tax,omitempty"`
+	Id          int64            `json:"id,omitempty"`
+	Quantity    int              `json:"quantity,omitempty"`
+	LineItemId  int64            `json:"line_item_id,omitempty"`
+	LineItem    *LineItem        `json:"line_item,omitempty"`
+	Subtotal    *decimal.Decimal `json:"subtotal,omitempty"`
+	TotalTax    *decimal.Decimal `json:"total_tax,omitempty"`
+	RestockType string           `json:"restock_type,omitempty"`
+	LocationId  int64            `json:"location_id,omitempty"`
 }
 
 // List orders
